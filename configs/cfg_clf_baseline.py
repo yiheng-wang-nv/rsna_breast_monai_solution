@@ -67,8 +67,8 @@ cfg.gpu_cache = False
 cfg.val_gpu_cache = False
 
 # model
-cfg.backbone = "tf_efficientnet_b0"
-cfg.output_dir = "./output_efnb0/"
+cfg.backbone = "tf_efficientnetv2_s"
+cfg.output_dir = "./output_efnv2s/"
 cfg.num_classes = 1
 cfg.pos_weight = 1.0
 cfg.in_channels = 3
@@ -85,24 +85,7 @@ cfg.train_transforms = Compose(
         Transposed(keys="image", indices=(0, 2, 1)),
         Resized(keys="image", spatial_size=cfg.img_size, mode="bilinear"),
         Lambdad(keys="image", func=lambda x: x / 255.0),
-        # AsDiscreted(keys="label", to_onehot=2),
         RandFlipd(keys="image", prob=0.5, spatial_axis=[1]),
-        # RandFlipd(keys="image", prob=0.5, spatial_axis=[0]),
-        # RandAffined(
-        #     keys="image",
-        #     prob=1.0,
-        #     rotate_range=np.pi / 12,
-        #     padding_mode="zeros",
-        # ),
-        # RandCoarseDropoutd(
-        #     keys="image",
-        #     holes=8,
-        #     spatial_size=(1, 1),
-        #     max_spatial_size=(25, 25),
-        #     prob=0.5,
-        # ),
-#         RandScaleIntensityd(keys="image", factors=(-0.1, 0.1), prob=0.5),
-        # RandShiftIntensityd(keys="image", offsets=(-0.1, 0.1), prob=0.5),
     ]
 )
 
@@ -114,6 +97,5 @@ cfg.val_transforms = Compose(
         Transposed(keys="image", indices=(0, 2, 1)),
         Resized(keys="image", spatial_size=cfg.img_size, mode="bilinear"),
         Lambdad(keys="image", func=lambda x: x / 255.0),
-        # AsDiscreted(keys="label", to_onehot=2),
     ]
 )
